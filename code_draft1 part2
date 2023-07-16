@@ -1,0 +1,61 @@
+%initialize OSAM-1
+
+%----------------------------------------
+%---------- Spacecraft
+%----------------------------------------
+
+Create Spacecraft osam_1;
+
+% add epoch
+GMAT osam_1.DateFormat = TAIGregorian;
+GMAT osam_1.Epoch = '01 Jul 2026 12:00:00.000';
+GMAT osam_1.CoordinateSystem = EarthMJ2000Eq;
+GMAT osam_1.DisplayStateType = Cartesian;
+GMAT osam_1.X = 6358.766606978325;
+GMAT osam_1.Y = -123.1094382154927;
+GMAT osam_1.Z = -3074.972267735455;
+GMAT osam_1.VX = -3.25251061333501;
+GMAT osam_1.VY = -1.07708049799974;
+GMAT osam_1.VZ = -6.68464810569324;
+GMAT osam_1.DryMass = 850;
+GMAT osam_1.Cd = 2.2;
+GMAT osam_1.Cr = 1.8;
+GMAT osam_1.DragArea = 15;
+GMAT osam_1.SRPArea = 1;
+GMAT osam_1.SPADDragScaleFactor = 1;
+GMAT osam_1.SPADSRPScaleFactor = 1;
+GMAT osam_1.AtmosDensityScaleFactor = 1;
+GMAT osam_1.ExtendedMassPropertiesModel = 'None';
+GMAT osam_1.NAIFId = -10032001;
+GMAT osam_1.NAIFIdReferenceFrame = -9032001;
+GMAT osam_1.OrbitColor = Red;
+GMAT osam_1.TargetColor = Teal;
+GMAT osam_1.OrbitErrorCovariance = [ 1e+70 0 0 0 0 0 ; 0 1e+70 0 0 0 0 ; 0 0 1e+70 0 0 0 ; 0 0 0 1e+70 0 0 ; 0 0 0 0 1e+70 0 ; 0 0 0 0 0 1e+70 ];
+GMAT osam_1.CdSigma = 1e+70;
+GMAT osam_1.CrSigma = 1e+70;
+GMAT osam_1.Id = 'SatId';
+GMAT osam_1.Attitude = CoordinateSystemFixed;
+GMAT osam_1.SPADSRPInterpolationMethod = Bilinear;
+GMAT osam_1.SPADSRPScaleFactorSigma = 1e+70;
+GMAT osam_1.SPADDragInterpolationMethod = Bilinear;
+GMAT osam_1.SPADDragScaleFactorSigma = 1e+70;
+GMAT osam_1.AtmosDensityScaleFactorSigma = 1e+70;
+GMAT osam_1.ModelFile = 'aura.3ds';
+GMAT osam_1.ModelOffsetX = 0;
+GMAT osam_1.ModelOffsetY = 0;
+GMAT osam_1.ModelOffsetZ = 0;
+GMAT osam_1.ModelRotationX = 0;
+GMAT osam_1.ModelRotationY = 0;
+GMAT osam_1.ModelRotationZ = 0;
+GMAT osam_1.ModelScale = 1;
+GMAT osam_1.AttitudeDisplayStateType = 'Quaternion';
+GMAT osam_1.AttitudeRateDisplayStateType = 'AngularVelocity';
+GMAT osam_1.AttitudeCoordinateSystem = EarthMJ2000Eq;
+GMAT osam_1.EulerAngleSequence = '321';
+
+%----------------------------------------
+%---------- Mission Sequence
+%----------------------------------------
+
+
+BeginMissionSequence;
