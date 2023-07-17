@@ -1,7 +1,23 @@
-echo "# GMAT-code" >> README.md
-git init
-git add README.md
-git commit -m "first commit"
-git branch -M main
-git remote add origin https://github.com/theRanu/GMAT-code.git
-git push -u origin main
+%initialize OSAM-1
+Create Spacecraft osam_1
+
+% add SMA
+osam_1.SMA = 7064.18
+
+% add epoch
+osam_1.DateFormat = TAIGregorian
+osam_1.Epoch = '01 Jul 2026 12:00:00.000'
+
+% add eccentricity
+osam_1.ECC = 0.00011
+
+% add Incline
+osam_1.INC = 97.852
+
+% add RAAN
+osam_1.RAAN = 182.714
+
+%add AoP
+osam_1.AOP = 106.178
+
+BeginMissionSequence
