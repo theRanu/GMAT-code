@@ -145,7 +145,7 @@ GMAT Osam1GroundTrackPlot.TextureMap = 'ModifiedBlueMarble.jpg';
 BeginMissionSequence;
 
 % Creating the Propagate
-Propagate Osam1_Propagator(osam_1) {osam_1.ElapsedDays = 62};
+Propagate Osam1_Propagator(osam_1) {osam_1.ElapsedDays = 62, OrbitColor = [253 2 216]};
 %--------------------------------------------------------------
 
 
