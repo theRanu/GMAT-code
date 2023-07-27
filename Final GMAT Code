@@ -1,0 +1,243 @@
+%initialize OSAM-1
+
+%----------------------------------------
+%---------- Spacecraft
+%----------------------------------------
+
+Create Spacecraft osam_1;
+
+% add epoch
+GMAT osam_1.DateFormat = TAIGregorian;
+GMAT osam_1.Epoch = '01 Jul 2026 12:00:00.000';
+GMAT osam_1.CoordinateSystem = EarthMJ2000Eq;
+GMAT osam_1.DisplayStateType = Keplerian;
+GMAT osam_1.SMA = 7064.180000000002;
+GMAT osam_1.ECC = 0.000109999999999962;
+GMAT osam_1.INC = 97.852;
+GMAT osam_1.RAAN = 182.7139999999999;
+GMAT osam_1.AOP = 106.1780000000329;
+GMAT osam_1.TA = 99.88774933201586;
+GMAT osam_1.DryMass = 850;
+GMAT osam_1.Cd = 2.2;
+GMAT osam_1.Cr = 1.8;
+GMAT osam_1.DragArea = 15;
+GMAT osam_1.SRPArea = 1;
+GMAT osam_1.SPADDragScaleFactor = 1;
+GMAT osam_1.SPADSRPScaleFactor = 1;
+GMAT osam_1.AtmosDensityScaleFactor = 1;
+GMAT osam_1.ExtendedMassPropertiesModel = 'None';
+GMAT osam_1.NAIFId = -10032001;
+GMAT osam_1.NAIFIdReferenceFrame = -9032001;
+GMAT osam_1.OrbitColor = [250 5 232];
+GMAT osam_1.TargetColor = Teal;
+GMAT osam_1.OrbitErrorCovariance = [ 1e+70 0 0 0 0 0 ; 0 1e+70 0 0 0 0 ; 0 0 1e+70 0 0 0 ; 0 0 0 1e+70 0 0 ; 0 0 0 0 1e+70 0 ; 0 0 0 0 0 1e+70 ];
+GMAT osam_1.CdSigma = 1e+70;
+GMAT osam_1.CrSigma = 1e+70;
+GMAT osam_1.Id = 'SatId';
+GMAT osam_1.Attitude = CoordinateSystemFixed;
+GMAT osam_1.SPADSRPInterpolationMethod = Bilinear;
+GMAT osam_1.SPADSRPScaleFactorSigma = 1e+70;
+GMAT osam_1.SPADDragInterpolationMethod = Bilinear;
+GMAT osam_1.SPADDragScaleFactorSigma = 1e+70;
+GMAT osam_1.AtmosDensityScaleFactorSigma = 1e+70;
+GMAT osam_1.ModelFile = 'aura.3ds';
+GMAT osam_1.ModelOffsetX = 0;
+GMAT osam_1.ModelOffsetY = 0;
+GMAT osam_1.ModelOffsetZ = 0;
+GMAT osam_1.ModelRotationX = 0;
+GMAT osam_1.ModelRotationY = 0;
+GMAT osam_1.ModelRotationZ = 0;
+GMAT osam_1.ModelScale = 1;
+GMAT osam_1.AttitudeDisplayStateType = 'Quaternion';
+GMAT osam_1.AttitudeRateDisplayStateType = 'AngularVelocity';
+GMAT osam_1.AttitudeCoordinateSystem = EarthMJ2000Eq;
+GMAT osam_1.EulerAngleSequence = '321';
+
+%----------------------------------------
+%---------- Mission Sequence
+%----------------------------------------
+
+%Creating the Propagator
+
+Create ForceModel Osam1_Propagator_ForceMode;
+GMAT Osam1_Propagator_ForceMode.CentralBody = Earth;
+GMAT Osam1_Propagator_ForceMode.PrimaryBodies = {Earth};
+GMAT Osam1_Propagator_ForceMode.Drag = None;
+GMAT Osam1_Propagator_ForceMode.SRP = Off;
+GMAT Osam1_Propagator_ForceMode.RelativisticCorrection = Off;
+GMAT Osam1_Propagator_ForceMode.ErrorControl = RSSStep;
+GMAT Osam1_Propagator_ForceMode.GravityField.Earth.Degree = 4;
+GMAT Osam1_Propagator_ForceMode.GravityField.Earth.Order = 4;
+GMAT Osam1_Propagator_ForceMode.GravityField.Earth.StmLimit = 100;
+GMAT Osam1_Propagator_ForceMode.GravityField.Earth.PotentialFile = 'JGM2.cof';
+GMAT Osam1_Propagator_ForceMode.GravityField.Earth.TideModel = 'None';
+
+Create Propagator Osam1_Propagator;
+GMAT Osam1_Propagator.FM = Osam1_Propagator_ForceMode;
+GMAT Osam1_Propagator.Type = RungeKutta89;
+GMAT Osam1_Propagator.InitialStepSize = 60;
+GMAT Osam1_Propagator.Accuracy = 9.999999999999999e-12;
+GMAT Osam1_Propagator.MinStep = 0.001;
+GMAT Osam1_Propagator.MaxStep = 2700;
+GMAT Osam1_Propagator.MaxStepAttempts = 50;
+GMAT Osam1_Propagator.StopIfAccuracyIsViolated = true;
+
+%-------------------------------------------------------
+
+% Creating the Orbit View
+
+Create OrbitView Osam1_OrbitView;
+GMAT Osam1_OrbitView.SolverIterations = Current;
+GMAT Osam1_OrbitView.UpperLeft = [ 0 0 ];
+GMAT Osam1_OrbitView.Size = [ 0 0 ];
+GMAT Osam1_OrbitView.RelativeZOrder = 0;
+GMAT Osam1_OrbitView.Maximized = false;
+GMAT Osam1_OrbitView.Add = {osam_1, cubeSat1, Earth};
+GMAT Osam1_OrbitView.CoordinateSystem = EarthMJ2000Eq;
+GMAT Osam1_OrbitView.DrawObject = [ true true ];
+GMAT Osam1_OrbitView.DataCollectFrequency = 1;
+GMAT Osam1_OrbitView.UpdatePlotFrequency = 50;
+GMAT Osam1_OrbitView.NumPointsToRedraw = 0;
+GMAT Osam1_OrbitView.ShowPlot = true;
+GMAT Osam1_OrbitView.MaxPlotPoints = 20000;
+GMAT Osam1_OrbitView.ShowLabels = true;
+GMAT Osam1_OrbitView.ViewPointReference = Earth;
+GMAT Osam1_OrbitView.ViewPointVector = [ 0 30000 0 ];
+GMAT Osam1_OrbitView.ViewDirection = Earth;
+GMAT Osam1_OrbitView.ViewScaleFactor = 1;
+GMAT Osam1_OrbitView.ViewUpCoordinateSystem = EarthMJ2000Eq;
+GMAT Osam1_OrbitView.ViewUpAxis = Y;
+GMAT Osam1_OrbitView.EclipticPlane = Off;
+GMAT Osam1_OrbitView.XYPlane = On;
+GMAT Osam1_OrbitView.WireFrame = Off;
+GMAT Osam1_OrbitView.Axes = On;
+GMAT Osam1_OrbitView.Grid = Off;
+GMAT Osam1_OrbitView.SunLine = Off;
+GMAT Osam1_OrbitView.UseInitialView = On;
+GMAT Osam1_OrbitView.StarCount = 7000;
+GMAT Osam1_OrbitView.EnableStars = On;
+GMAT Osam1_OrbitView.EnableConstellations = On;
+
+%----------------------------------------------------------------
+
+%Create Ground Track
+
+Create GroundTrackPlot Osam1GroundTrackPlot;
+GMAT Osam1GroundTrackPlot.SolverIterations = Current;
+GMAT Osam1GroundTrackPlot.UpperLeft = [ 0 0 ];
+GMAT Osam1GroundTrackPlot.Size = [ 0 0 ];
+GMAT Osam1GroundTrackPlot.RelativeZOrder = 0;
+GMAT Osam1GroundTrackPlot.Maximized = false;
+GMAT Osam1GroundTrackPlot.Add = {osam_1};
+GMAT Osam1GroundTrackPlot.DataCollectFrequency = 1;
+GMAT Osam1GroundTrackPlot.UpdatePlotFrequency = 50;
+GMAT Osam1GroundTrackPlot.NumPointsToRedraw = 0;
+GMAT Osam1GroundTrackPlot.ShowPlot = true;
+GMAT Osam1GroundTrackPlot.MaxPlotPoints = 20000;
+GMAT Osam1GroundTrackPlot.CentralBody = Earth;
+GMAT Osam1GroundTrackPlot.TextureMap = 'ModifiedBlueMarble.jpg';
+
+%--------------------------------------------------------------
+
+%----------------------------------------
+%---------- Spacecraft
+%----------------------------------------
+
+Create Spacecraft cubeSat1;
+
+% add epoch
+GMAT cubeSat1.DateFormat = TAIGregorian;
+GMAT cubeSat1.Epoch = '01 Jul 2026 12:00:00.000';
+GMAT cubeSat1.CoordinateSystem = EarthMJ2000Eq;
+GMAT cubeSat1.DisplayStateType = Keplerian;
+GMAT cubeSat1.SMA = 7064.180000000002;
+GMAT cubeSat1.ECC = 0.000109999999999962;
+GMAT cubeSat1.INC = 97.852;
+GMAT cubeSat1.RAAN = 182.7139999999999;
+GMAT cubeSat1.AOP = 106.1780000000329;
+GMAT cubeSat1.DryMass = 850;
+GMAT cubeSat1.Cd = 2.2;
+GMAT cubeSat1.Cr = 1.8;
+GMAT cubeSat1.DragArea = 15;
+GMAT cubeSat1.SRPArea = 1;
+GMAT cubeSat1.SPADDragScaleFactor = 1;
+GMAT cubeSat1.SPADSRPScaleFactor = 1;
+GMAT cubeSat1.AtmosDensityScaleFactor = 1;
+GMAT cubeSat1.ExtendedMassPropertiesModel = 'None';
+GMAT cubeSat1.NAIFId = -10032001;
+GMAT cubeSat1.NAIFIdReferenceFrame = -9032001;
+GMAT cubeSat1.OrbitColor = [18 237 204];
+GMAT cubeSat1.TargetColor = Teal;
+GMAT cubeSat1.OrbitErrorCovariance = [ 1e+70 0 0 0 0 0 ; 0 1e+70 0 0 0 0 ; 0 0 1e+70 0 0 0 ; 0 0 0 1e+70 0 0 ; 0 0 0 0 1e+70 0 ; 0 0 0 0 0 1e+70 ];
+GMAT cubeSat1.CdSigma = 1e+70;
+GMAT cubeSat1.CrSigma = 1e+70;
+GMAT cubeSat1.Id = 'SatId';
+GMAT cubeSat1.Attitude = CoordinateSystemFixed;
+GMAT cubeSat1.SPADSRPInterpolationMethod = Bilinear;
+GMAT cubeSat1.SPADSRPScaleFactorSigma = 1e+70;
+GMAT cubeSat1.SPADDragInterpolationMethod = Bilinear;
+GMAT cubeSat1.SPADDragScaleFactorSigma = 1e+70;
+GMAT cubeSat1.AtmosDensityScaleFactorSigma = 1e+70;
+GMAT cubeSat1.ModelFile = 'aura.3ds';
+GMAT cubeSat1.ModelOffsetX = 0;
+GMAT cubeSat1.ModelOffsetY = 0;
+GMAT cubeSat1.ModelOffsetZ = 0;
+GMAT cubeSat1.ModelRotationX = 0;
+GMAT cubeSat1.ModelRotationY = 0;
+GMAT cubeSat1.ModelRotationZ = 0;
+GMAT cubeSat1.ModelScale = 1;
+GMAT cubeSat1.AttitudeDisplayStateType = 'Quaternion';
+GMAT cubeSat1.AttitudeRateDisplayStateType = 'AngularVelocity';
+GMAT cubeSat1.AttitudeCoordinateSystem = EarthMJ2000Eq;
+GMAT cubeSat1.EulerAngleSequence = '321';
+
+
+%----------------------------------------
+%---------- Mission Sequence
+%----------------------------------------
+
+% Creating the Orbit View
+
+Create OrbitView cubeSat1_OrbitView;
+GMAT cubeSat1_OrbitView.SolverIterations = Current;
+GMAT cubeSat1_OrbitView.UpperLeft = [ 0 0 ];
+GMAT cubeSat1_OrbitView.Size = [ 0 0 ];
+GMAT cubeSat1_OrbitView.RelativeZOrder = 0;
+GMAT cubeSat1_OrbitView.Maximized = false;
+GMAT cubeSat1_OrbitView.Add = {osam_1, cubeSat1, Earth};
+GMAT cubeSat1_OrbitView.CoordinateSystem = EarthMJ2000Eq;
+GMAT cubeSat1_OrbitView.DrawObject = [ true true ];
+GMAT cubeSat1_OrbitView.DataCollectFrequency = 1;
+GMAT cubeSat1_OrbitView.UpdatePlotFrequency = 50;
+GMAT cubeSat1_OrbitView.NumPointsToRedraw = 0;
+GMAT cubeSat1_OrbitView.ShowPlot = true;
+GMAT cubeSat1_OrbitView.MaxPlotPoints = 20000;
+GMAT cubeSat1_OrbitView.ShowLabels = true;
+GMAT cubeSat1_OrbitView.ViewPointReference = Earth;
+GMAT cubeSat1_OrbitView.ViewPointVector = cubeSat1;
+GMAT cubeSat1_OrbitView.ViewDirection = osam_1;
+GMAT cubeSat1_OrbitView.ViewScaleFactor = 1;
+GMAT cubeSat1_OrbitView.ViewUpCoordinateSystem = EarthMJ2000Eq;
+GMAT cubeSat1_OrbitView.ViewUpAxis = Y;
+GMAT cubeSat1_OrbitView.EclipticPlane = Off;
+GMAT cubeSat1_OrbitView.XYPlane = Off;
+GMAT cubeSat1_OrbitView.WireFrame = Off;
+GMAT cubeSat1_OrbitView.Axes = On;
+GMAT cubeSat1_OrbitView.Grid = Off;
+GMAT cubeSat1_OrbitView.SunLine = Off;
+GMAT cubeSat1_OrbitView.UseInitialView = On;
+GMAT cubeSat1_OrbitView.StarCount = 7000;
+GMAT cubeSat1_OrbitView.EnableStars = On;
+GMAT cubeSat1_OrbitView.EnableConstellations = On;
+
+%--------------------------------------------------------------
+
+
+%/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\
+%                            Mission Starts
+%/\/\/\/\/\/\
+BeginMissionSequence;
+
+% Creating the Propagate
+Propagate Osam1_Propagator(osam_1) Osam1_Propagator(cubeSat1) {osam_1.ElapsedDays = 10};
+%--------------------------------------------------------------
