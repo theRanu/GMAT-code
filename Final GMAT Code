@@ -232,6 +232,25 @@ GMAT cubeSat1_OrbitView.EnableConstellations = On;
 
 %--------------------------------------------------------------
 
+Create GroundStation GroundStation1;
+GMAT GroundStation1.OrbitColor = [216 191 216];
+GMAT GroundStation1.TargetColor = [248 181 90];
+GMAT GroundStation1.CentralBody = Earth;
+GMAT GroundStation1.StateType = Spherical;
+GMAT GroundStation1.HorizonReference = Sphere;
+GMAT GroundStation1.Location1 = 37.924751;
+GMAT GroundStation1.Location2 = 75.486183;
+GMAT GroundStation1.Location3 = 6372;
+GMAT GroundStation1.Id = 'NASA_Wallops';
+GMAT GroundStation1.IonosphereModel = 'None';
+GMAT GroundStation1.TroposphereModel = 'None';
+GMAT GroundStation1.DataSource = 'Constant';
+GMAT GroundStation1.Temperature = 295.1;
+GMAT GroundStation1.Pressure = 1013.5;
+GMAT GroundStation1.Humidity = 55;
+GMAT GroundStation1.MinimumElevationAngle = 7;
+
+%--------------------------------------------------------------
 
 %/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\
 %                            Mission Starts
